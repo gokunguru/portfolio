@@ -1,0 +1,19 @@
+.home {
+    text-align: center;
+    margin-top: 120px;
+  }
+  
+  .home h1 {
+    font-size: 3rem;
+  }
+  
+  .home h2 {
+    margin-top: 10px;
+    color: #3b82f6;
+  }
+  
+  .home p {
+    max-width: 600px;
+    margin: 30px auto;
+    font-size: 1.05rem;
+  }
