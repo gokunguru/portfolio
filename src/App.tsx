@@ -8,10 +8,10 @@ import Contact from './pages/Contact'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />       {/* Accueil par défaut */}
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/skills" element={<Skills />} />
