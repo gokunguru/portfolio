@@ -3,14 +3,17 @@ import { Nav } from './components/Nav'
 import { Reveal } from './components/Reveal'
 import { Topology } from './components/Topology'
 import { ArrowIcon, GitHubIcon, LinkedInIcon } from './components/Icons'
-import { about, certifications, experience, featured, languages, profile, projects, skills, type Project } from './data'
+import { common } from './i18n/common'
+import { useI18n } from './i18n/context'
+import type { Project, SectionId } from './i18n/types'
 
-function Section({ id, label, title, children }: { id: string; label: string; title: string; children: ReactNode }) {
+function Section({ id, children }: { id: SectionId; children: ReactNode }) {
+  const { t } = useI18n()
   return (
     <section id={id} className="section container">
       <Reveal>
-        <p className="eyebrow">{label}</p>
-        <h2>{title}</h2>
+        <p className="eyebrow">{t.sections[id].label}</p>
+        <h2>{t.sections[id].title}</h2>
       </Reveal>
       {children}
     </section>
@@ -44,17 +47,20 @@ function ProjectCard({ p, wide = false }: { p: Project; wide?: boolean }) {
 function Links() {
   return (
     <div className="links">
-      <a className="btn btn-primary" href={profile.github} target="_blank" rel="noreferrer">
-        <GitHubIcon /> GitHub
+      <a className="btn btn-primary" href={common.github.url} target="_blank" rel="noreferrer">
+        <GitHubIcon /> {common.github.label}
       </a>
-      <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">
-        <LinkedInIcon /> LinkedIn
+      <a className="btn" href={common.linkedin.url} target="_blank" rel="noreferrer">
+        <LinkedInIcon /> {common.linkedin.label}
       </a>
     </div>
   )
 }
 
 export default function App() {
+  const { t } = useI18n()
+  const term = common.terminal
+
   return (
     <>
       <Nav />
@@ -62,32 +68,34 @@ export default function App() {
         <section className="hero container">
           <div className="hero-text">
             <p className="status">
-              <span className="dot" /> Open to a final-year internship — April 2027, Paris
+              <span className="dot" /> {t.hero.status}
             </p>
-            <h1>{profile.name}</h1>
-            <p className="hero-title">{profile.title}</p>
-            <p className="muted hero-tagline">{profile.tagline}</p>
+            <h1>{common.name}</h1>
+            <p className="hero-title">{t.hero.title}</p>
+            <p className="muted hero-tagline">{t.hero.tagline}</p>
             <pre className="terminal" aria-hidden="true">
-              <span className="prompt">$</span> ansible-playbook audit.yml{'\n'}
-              <span className="ok">ok</span>=42 changed=0 failed=0 <span className="ok">✓ compliant</span>
+              <span className="prompt">{term.prompt}</span> {term.command}
+              {'\n'}
+              <span className="ok">{term.ok}</span>
+              {term.result} <span className="ok">{term.verdict}</span>
             </pre>
             <Links />
           </div>
-          <Topology />
+          <Topology label={t.a11y.topology} />
         </section>
 
-        <Section id="about" label="01 · About" title="Background">
+        <Section id="about">
           <div className="about">
             <Reveal>
-              {about.text.map((t) => (
-                <p key={t} className="muted">
-                  {t}
+              {t.about.text.map((p) => (
+                <p key={p} className="muted">
+                  {p}
                 </p>
               ))}
-              <p className="muted">{about.extra}</p>
+              <p className="muted">{t.about.extra}</p>
             </Reveal>
             <ol className="path">
-              {about.path.map((s, i) => (
+              {t.about.path.map((s, i) => (
                 <li key={s.school}>
                   <Reveal delay={i * 80}>
                     <span className="mono period">{s.period}</span>
@@ -101,9 +109,9 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="experience" label="02 · Experience" title="Where I’ve worked">
+        <Section id="experience">
           <ol className="timeline">
-            {experience.map((e) => (
+            {t.experience.map((e) => (
               <li key={e.company}>
                 <Reveal>
                   <div className="timeline-head">
@@ -127,27 +135,27 @@ export default function App() {
           </ol>
         </Section>
 
-        <Section id="projects" label="03 · Projects" title="Selected work">
+        <Section id="projects">
           <Reveal>
-            <ProjectCard p={featured} wide />
+            <ProjectCard p={t.projects.featured} wide />
           </Reveal>
           <div className="grid">
-            {projects.map((p, i) => (
+            {t.projects.list.map((p, i) => (
               <Reveal key={p.name} delay={(i % 3) * 80}>
                 <ProjectCard p={p} />
               </Reveal>
             ))}
           </div>
           <p className="more">
-            <a href={profile.github} target="_blank" rel="noreferrer">
-              More on GitHub <ArrowIcon />
+            <a href={common.github.url} target="_blank" rel="noreferrer">
+              {t.projects.more} <ArrowIcon />
             </a>
           </p>
         </Section>
 
-        <Section id="skills" label="04 · Skills" title="What I work with">
+        <Section id="skills">
           <div className="skills">
-            {skills.map((s, i) => (
+            {t.skills.map((s, i) => (
               <Reveal key={s.group} delay={i * 60}>
                 <div className="card skill">
                   <h3>{s.group}</h3>
@@ -159,9 +167,11 @@ export default function App() {
           <div className="duo">
             <Reveal>
               <div className="card">
-                <h3>Certifications <span className="tag">in progress</span></h3>
+                <h3>
+                  {t.certifications.heading} <span className="tag">{t.certifications.tag}</span>
+                </h3>
                 <ul className="list">
-                  {certifications.map((c) => (
+                  {t.certifications.items.map((c) => (
                     <li key={c.name}>
                       <span>{c.name}</span>
                       <span className="mono muted">{c.issuer}</span>
@@ -172,9 +182,9 @@ export default function App() {
             </Reveal>
             <Reveal delay={80}>
               <div className="card">
-                <h3>Languages</h3>
+                <h3>{t.languages.heading}</h3>
                 <ul className="list">
-                  {languages.map((l) => (
+                  {t.languages.items.map((l) => (
                     <li key={l.name}>
                       <span>{l.name}</span>
                       <span className="mono muted">{l.level}</span>
@@ -186,19 +196,16 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="contact" label="05 · Contact" title="Let’s talk">
+        <Section id="contact">
           <Reveal>
-            <p className="muted contact-text">
-              Looking for a final-year internship in network automation, DevSecOps or cloud security from April 2027.
-              The best way to reach me is LinkedIn.
-            </p>
+            <p className="muted contact-text">{t.contact.text}</p>
             <Links />
           </Reveal>
         </Section>
       </main>
       <footer className="footer container">
-        <span>© 2026 {profile.name}</span>
-        <a href="#top">Back to top ↑</a>
+        <span>{common.copyright}</span>
+        <a href="#top">{t.footer.backToTop}</a>
       </footer>
     </>
   )

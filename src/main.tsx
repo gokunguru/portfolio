@@ -4,9 +4,12 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './index.css'
 import App from './App.tsx'
+import { LangProvider } from './i18n/LangProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <LangProvider>
+      <App />
+    </LangProvider>
   </StrictMode>,
 )

@@ -22,9 +22,9 @@ const links: [string, string][] = [
 const pos = Object.fromEntries(nodes.map((n) => [n.id, n]))
 const path = ([a, b]: [string, string]) => `M${pos[a].x},${pos[a].y} L${pos[b].x},${pos[b].y}`
 
-export function Topology() {
+export function Topology({ label }: { label: string }) {
   return (
-    <svg className="topology" viewBox="0 0 400 360" role="img" aria-label="Network topology illustration">
+    <svg className="topology" viewBox="0 0 400 360" role="img" aria-label={label}>
       {links.map((l) => (
         <path key={l.join('-')} d={path(l)} className="topology-link" />
       ))}
