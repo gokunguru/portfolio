@@ -88,6 +88,11 @@ export const en: Content = {
     },
     list: [
       {
+        ...repos.netopsCopilot,
+        description:
+          'AI agent built for the Meta Global AI Developer Hackathon that turns a plain-language network request into validated multi-vendor configuration (Cisco IOS, Huawei VRP). Deterministic gate and dry-run, independent reviewer agent, human approval, proven rollback and hash-chained audit log. Verified push on a real Cisco Catalyst 8000.',
+      },
+      {
         ...repos.compliance,
         description:
           'Audits Cisco IOS configurations against YAML-defined security rules and builds a consolidated HTML compliance report. Runs fully offline, so the whole audit is tested in CI.',

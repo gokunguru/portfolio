@@ -89,6 +89,11 @@ export const fr: Content = {
     },
     list: [
       {
+        ...repos.netopsCopilot,
+        description:
+          'Agent IA développé pour le Meta Global AI Developer Hackathon, qui transforme une demande réseau en langage naturel en configuration multi-constructeur validée (Cisco IOS, Huawei VRP). Contrôles et dry-run déterministes, agent relecteur indépendant, approbation humaine, rollback prouvé et journal d’audit chaîné par hash. Push vérifié sur un vrai Cisco Catalyst 8000.',
+      },
+      {
         ...repos.compliance,
         description:
           'Audite des configurations Cisco IOS selon des règles de sécurité décrites en YAML et génère un rapport de conformité HTML consolidé. Fonctionne entièrement hors ligne, ce qui permet de tester l’intégralité de l’audit en CI.',

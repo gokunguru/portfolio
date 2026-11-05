@@ -19,6 +19,11 @@ export const common = {
 const gh = (repo: string) => `https://github.com/gokunguru/${repo}`
 
 export const repos = {
+  netopsCopilot: {
+    name: 'netops-copilot',
+    repo: gh('netops-copilot'),
+    stack: ['Python', 'Muse Spark', 'FastAPI', 'HTMX', 'Netmiko', 'Ansible', 'Docker', 'GitHub Actions'],
+  },
   ordocare: { name: 'OrdoCare', repo: gh('Ordocare'), stack: ['React Native', 'Django REST', 'FastAPI', 'TrOCR', 'NLLB-200', 'Docker'] },
   compliance: {
     name: 'network-compliance-ansible',
